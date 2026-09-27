@@ -1,0 +1,21 @@
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { AdmissionForm } from '@/components/admission-form'
+
+export const metadata: Metadata = { title: 'Admissions' }
+
+const steps = [
+  ['01 / EXPLORE', 'Learn about GDIS', 'Explore our learning approach, values and school community to see what makes GDIS a welcoming place to grow.'],
+  ['02 / CONNECT', 'Meet our team', 'Talk with the admissions team, ask your questions and arrange a campus visit for your family.'],
+  ['03 / BEGIN', 'Complete the application', 'Submit the application and supporting information. We will share the next steps for your child’s admission.'],
+]
+
+export default function AdmissionPage() {
+  return <main>
+    <section className="relative overflow-hidden bg-ink-deep py-20 text-white sm:py-28"><div className="absolute -right-24 -bottom-64 h-[42rem] w-[42rem] rounded-full border border-orange-300/20" /><div className="site-shell relative"><div className="mb-7 inline-grid place-items-center border border-lime/50 bg-lime/10 px-6 py-3 text-xs font-extrabold tracking-[0.16em] text-lime uppercase">School Admission Open</div><p className="eyebrow text-white/65">Admissions 2026-27</p><h1 className="mt-6 max-w-5xl font-display text-5xl font-bold tracking-[-0.07em] sm:text-7xl lg:text-8xl">A confident start.<br /><em className="font-serif font-normal text-lime">A bright next step.</em></h1><p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl">Every admission begins with a conversation. Discover a welcoming school community where children are known, supported and encouraged to grow.</p></div></section>
+    <section className="bg-paper py-16 sm:py-24"><div className="site-shell grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24"><div><p className="section-label">Your next step</p><h2 className="section-heading">Begin with a <em>conversation.</em></h2></div><div className="space-y-5 text-lg leading-relaxed text-ink-soft"><p>The School invites aspiring applicants for admission. If you are a keen learner with kindling curiosity and a sense of adventure, then G.D. International School Aliganj, Etah is the place to be.</p><p>We are excited to welcome you to our prestigious institution and guide you on your journey to success. Our dedicated admission team is here to assist you every step of the way.</p><a href="#admission-form" className="inline-flex rounded-full bg-ink px-6 py-4 text-sm font-bold text-white transition hover:-translate-y-0.5">Talk to admissions →</a></div></div></section>
+    <section className="bg-cream py-16 sm:py-24"><div className="site-shell"><p className="section-label">How it works</p><h2 className="section-heading mb-10">Three clear steps to <em>get started.</em></h2><div className="grid gap-5 md:grid-cols-3">{steps.map(([number, title, body]) => <article key={title} className="min-h-60 border border-ink/15 bg-white/45 p-7"><p className="mb-12 text-xs font-extrabold tracking-[0.14em] text-ink-soft">{number}</p><h3 className="font-display text-2xl font-bold tracking-[-0.04em]">{title}</h3><p className="mt-3 leading-relaxed text-ink-soft">{body}</p></article>)}</div></div></section>
+    <section id="admission-form" className="bg-ink py-16 text-white sm:py-24"><div className="site-shell border border-white/15 bg-ink-deep p-7 sm:p-14"><div className="mx-auto mb-10 max-w-2xl text-center"><p className="eyebrow justify-center text-white/65">Apply to GDIS</p><h2 className="mt-5 font-display text-4xl font-bold tracking-[-0.06em] sm:text-6xl">Admission <em className="font-serif font-normal text-lime">Enquiry Form</em></h2><p className="mt-4 text-white/70">Share your details and our admission team will help you with the next step.</p></div><AdmissionForm /></div></section>
+    <section className="bg-paper py-16 sm:py-20"><div className="site-shell flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center"><h2 className="max-w-3xl font-display text-4xl font-bold tracking-[-0.06em] sm:text-6xl">Want to know more about <em className="font-serif font-normal text-[#6d9d8b]">student life?</em></h2><Link href="/student" className="rounded-full bg-lime px-6 py-4 text-sm font-bold text-ink">Explore student life →</Link></div></section>
+  </main>
+}

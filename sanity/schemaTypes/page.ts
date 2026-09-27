@@ -1,0 +1,41 @@
+import { defineField, defineType } from 'sanity'
+
+export const page = defineType({
+  name: 'page',
+  title: 'Website Page',
+  type: 'document',
+  fields: [
+    defineField({ name: 'title', title: 'Internal title', type: 'string', validation: (rule) => rule.required() }),
+    defineField({ name: 'slug', title: 'Route', type: 'slug', options: { source: 'title', maxLength: 96 }, validation: (rule) => rule.required() }),
+    defineField({ name: 'heroTitle', title: 'Hero title', type: 'string' }),
+    defineField({ name: 'heroAccent', title: 'Hero accent text', type: 'string' }),
+    defineField({ name: 'heroSummary', title: 'Hero summary', type: 'text', rows: 3 }),
+    defineField({
+      name: 'heroImage',
+      title: 'Hero image',
+      description: 'Upload or replace the banner image for this page. Use the crop and hotspot controls to choose its focal point.',
+      type: 'image',
+      options: { hotspot: true },
+      fields: [
+        defineField({ name: 'alt', title: 'Alternative text', type: 'string', description: 'Describe the image for screen-reader users.' }),
+      ],
+    }),
+    defineField({ name: 'introTitle', title: 'Introduction title', type: 'string' }),
+    defineField({ name: 'introAccent', title: 'Introduction accent text', type: 'string' }),
+    defineField({ name: 'introBody', title: 'Introduction paragraphs', type: 'array', of: [{ type: 'text', rows: 4 }] }),
+    defineField({ name: 'featureLabel', title: 'Feature section label', type: 'string' }),
+    defineField({ name: 'featureTitle', title: 'Feature section title', type: 'string' }),
+    defineField({ name: 'featureAccent', title: 'Feature section accent', type: 'string' }),
+    defineField({ name: 'cards', title: 'Feature cards', type: 'array', of: [{ type: 'featureCard' }], validation: (rule) => rule.max(3) }),
+    defineField({ name: 'panelLabel', title: 'Detail section label', type: 'string' }),
+    defineField({ name: 'panelTitle', title: 'Detail section title', type: 'string' }),
+    defineField({ name: 'panelAccent', title: 'Detail section accent', type: 'string' }),
+    defineField({ name: 'panelHeading', title: 'Detail panel heading', type: 'string' }),
+    defineField({ name: 'panelBody', title: 'Detail panel description', type: 'text', rows: 4 }),
+    defineField({ name: 'panelItems', title: 'Detail panel items', type: 'array', of: [{ type: 'featureCard' }] }),
+    defineField({ name: 'cta', title: 'Call-to-action title', type: 'string' }),
+    defineField({ name: 'ctaAccent', title: 'Call-to-action accent', type: 'string' }),
+    defineField({ name: 'ctaLabel', title: 'Call-to-action label', type: 'string' }),
+    defineField({ name: 'ctaHref', title: 'Call-to-action link', type: 'string' }),
+  ],
+})
