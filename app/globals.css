@@ -19,6 +19,8 @@ body { margin: 0; background: var(--color-paper); color: var(--color-ink); }
 a { text-decoration: none; }
 
 .site-shell { width: min(1180px, calc(100% - 2.5rem)); margin-inline: auto; }
+.principal-message-section blockquote:not(.principal-message-content) { display: none; }
+.notice-section > a:not(.notice-content-link) { display: none; }
 .eyebrow, .section-label { display: flex; align-items: center; gap: .65rem; font-size: .7rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 .eyebrow::before, .section-label::before { width: 1.75rem; height: 1px; background: currentColor; content: ''; }
 .section-label { color: #6d9d8b; }

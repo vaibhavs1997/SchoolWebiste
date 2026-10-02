@@ -5,8 +5,8 @@ export const page = defineType({
   title: 'Website Page',
   type: 'document',
   fields: [
-    defineField({ name: 'title', title: 'Internal title', type: 'string', validation: (rule) => rule.required() }),
-    defineField({ name: 'slug', title: 'Route', type: 'slug', options: { source: 'title', maxLength: 96 }, validation: (rule) => rule.required() }),
+    defineField({ name: 'title', title: 'Internal title', type: 'string' }),
+    defineField({ name: 'slug', title: 'Route', type: 'slug', options: { source: 'title', maxLength: 96 } }),
     defineField({ name: 'heroTitle', title: 'Hero title', type: 'string' }),
     defineField({ name: 'heroAccent', title: 'Hero accent text', type: 'string' }),
     defineField({ name: 'heroSummary', title: 'Hero summary', type: 'text', rows: 3 }),

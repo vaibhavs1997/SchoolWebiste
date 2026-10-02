@@ -6,7 +6,7 @@ export const featureCard = defineType({
   type: 'object',
   fields: [
     defineField({ name: 'number', title: 'Label or number', type: 'string' }),
-    defineField({ name: 'title', title: 'Title', type: 'string', validation: (rule) => rule.required() }),
+    defineField({ name: 'title', title: 'Title', type: 'string' }),
     defineField({ name: 'body', title: 'Description', type: 'text', rows: 3 }),
     defineField({
       name: 'image',

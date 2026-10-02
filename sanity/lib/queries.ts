@@ -1,10 +1,11 @@
 import type { MarketingPageContent } from '@/lib/site-content'
 import { defaultHomeContent, type HomeContent } from '@/lib/home-content'
-import { defaultSiteSettings, type SiteSettings } from '@/lib/site-settings'
+import { defaultFooterSettings, defaultSiteSettings, type FooterSettings, type SiteSettings } from '@/lib/site-settings'
 import { sanityClient } from '@/sanity/lib/client'
 
 type CmsPage = Partial<MarketingPageContent>
 type CmsSiteSettings = Partial<SiteSettings> & { logoUrl?: string }
+type CmsFooterSettings = Partial<FooterSettings> & { logoUrl?: string }
 type CmsHomeContent = Partial<HomeContent>
 
 const pageQuery = `*[_type == "page" && slug.current == $slug][0]{
@@ -23,11 +24,25 @@ const siteSettingsQuery = `*[_id == "siteSettings"][0]{
   socialLinks[]{label, href, platform}
 }`
 
+const footerSettingsQuery = `*[_id == "footerSettings"][0]{
+  schoolName, tagline, "logoUrl": logo.asset->url, motto,
+  exploreTitle, exploreLinks[]{label, href}, resourcesTitle, resourceLinks[]{label, href},
+  socialTitle, socialLinks[]{label, href, platform},
+  visitTitle, addressLineOne, addressLineTwo, directionsLabel, directionsUrl, mapEmbedUrl,
+  copyrightTemplate, closingMessage
+}`
+
 const homePageQuery = `*[_id == "homePage"][0]{
   heroEyebrow,
   heroSlides[]{"image": image.asset->url, title, accent, description},
   primaryCtaLabel, primaryCtaHref, secondaryCtaLabel, secondaryCtaHref,
-  heroStats[]{label, value}
+  heroStats[]{label, value},
+  "directorMessageImage": directorMessageImage.asset->url,
+  directorMessage,
+  "principalMessageImage": principalMessageImage.asset->url,
+  principalMessage,
+  noticeSection{label, eventLabel, eventTabLabel, title, summary, updatedAt, updatedLabel, viewMoreLabel, viewMoreHref},
+  communitySection{slides[]{"image": image.asset->url, alt, title, subtitle}}
 }`
 
 function populatedFields<T extends object>(content: T | null): Partial<T> {
@@ -58,6 +73,25 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   }
 }
 
+export async function getFooterSettings(): Promise<FooterSettings> {
+  if (!sanityClient) return defaultFooterSettings
+
+  try {
+    const footer = await sanityClient.fetch<CmsFooterSettings | null>(footerSettingsQuery, {}, { next: { revalidate: 60, tags: ['footer-settings'] } })
+    if (!footer) return defaultFooterSettings
+
+    return {
+      ...defaultFooterSettings,
+      ...populatedFields(footer),
+      exploreLinks: footer.exploreLinks?.length ? footer.exploreLinks : defaultFooterSettings.exploreLinks,
+      resourceLinks: footer.resourceLinks?.length ? footer.resourceLinks : defaultFooterSettings.resourceLinks,
+      socialLinks: footer.socialLinks?.length ? footer.socialLinks : defaultFooterSettings.socialLinks,
+    }
+  } catch {
+    return defaultFooterSettings
+  }
+}
+
 export async function getHomeContent(): Promise<HomeContent> {
   if (!sanityClient) return defaultHomeContent
 
@@ -71,6 +105,12 @@ export async function getHomeContent(): Promise<HomeContent> {
       ...merged,
       heroSlides: content.heroSlides?.length ? content.heroSlides : defaultHomeContent.heroSlides,
       heroStats: content.heroStats?.length ? content.heroStats : defaultHomeContent.heroStats,
+      noticeSection: { ...defaultHomeContent.noticeSection, ...(content.noticeSection ?? {}) },
+      communitySection: {
+        ...defaultHomeContent.communitySection,
+        ...(content.communitySection ?? {}),
+        slides: content.communitySection?.slides?.length ? content.communitySection.slides : defaultHomeContent.communitySection.slides,
+      },
     }
   } catch {
     return defaultHomeContent

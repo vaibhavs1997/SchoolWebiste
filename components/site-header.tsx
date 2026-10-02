@@ -9,14 +9,15 @@ export function SiteHeader({ settings }: Readonly<{ settings: SiteSettings }>) {
   const pathname = usePathname()
   const logo = settings.logoUrl ?? '/assets/GDIS.png'
   const phoneHref = `tel:${settings.phone.replace(/[^+\d]/g, '')}`
+  const showAnnouncement = Boolean(settings.announcement || settings.announcementLinkLabel)
 
   return <>
-    <div className="bg-ink-deep text-xs text-white">
+    {showAnnouncement && <div className="bg-ink-deep text-xs text-white">
       <div className="site-shell flex min-h-10 flex-wrap items-center justify-center gap-x-6 gap-y-1 py-2 text-center">
-        <p className="flex items-center gap-3 font-normal"><span className="h-2.5 w-2.5 shrink-0 rounded-full bg-lime shadow-[0_0_0_5px_rgba(220,240,122,.12)]" aria-hidden="true" />{settings.announcement}</p>
-        <Link href={settings.announcementLinkHref} className="shrink-0 font-normal text-lime hover:text-white">{settings.announcementLinkLabel}</Link>
+        {settings.announcement && <p className="flex items-center gap-3 font-normal"><span className="h-2.5 w-2.5 shrink-0 rounded-full bg-lime shadow-[0_0_0_5px_rgba(220,240,122,.12)]" aria-hidden="true" />{settings.announcement}</p>}
+        {settings.announcementLinkLabel && settings.announcementLinkHref && <Link href={settings.announcementLinkHref} className="shrink-0 font-normal text-lime hover:text-white">{settings.announcementLinkLabel}</Link>}
       </div>
-    </div>
+    </div>}
     <header className="border-b border-ink/10 bg-paper">
       <div className="relative mx-auto flex min-h-32 w-[min(1810px,calc(100%-3rem))] flex-nowrap items-center justify-between gap-3 py-4">
         <Link href="/" className="flex shrink-0 items-center gap-3" aria-label={`${settings.schoolName} home`}>
