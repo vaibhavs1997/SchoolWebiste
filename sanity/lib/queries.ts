@@ -41,7 +41,9 @@ const homePageQuery = `*[_id == "homePage"][0]{
 }`
 
 function populatedFields<T extends object>(content: T | null): Partial<T> {
-  return Object.fromEntries(Object.entries(content ?? {}).filter(([, value]) => value !== undefined)) as Partial<T>
+  // Sanity returns explicitly empty fields as null. Do not let those values
+  // replace the site's safe defaults, especially for arrays rendered with map.
+  return Object.fromEntries(Object.entries(content ?? {}).filter(([, value]) => value != null)) as Partial<T>
 }
 
 export async function getCmsPage<T extends MarketingPageContent>(slug: string, fallback: T): Promise<T> {
