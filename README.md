@@ -18,7 +18,8 @@ Open `http://localhost:3000`.
 3. Add the Sanity project ID, dataset, a read token (only needed for a private dataset), and a strong revalidation secret.
 4. Run `npm.cmd run dev` and open `http://localhost:3000/studio`.
 5. In **Site settings**, create the single settings document and enter the header, footer, contact, map, social, and navigation details.
-6. Add content in **Website pages**, **Notices & events**, and **Faculty members**.
+6. Create the singleton **Home page**, **Admissions page**, and **Contact page** documents.
+7. Add content in **Website pages**, **Notices & events**, and **Faculty members**.
 
 ### Publishing changes
 
@@ -33,8 +34,10 @@ The webhook verifies Sanity's signature and revalidates the site layout and its 
 ### CMS coverage
 
 - **Site settings** controls the admissions strip, navigation, logo, school identity, phone, footer links, address, map, and social profiles.
-- **Home page** controls the homepage hero slides, calls to action, and highlight items.
-- **Website pages** controls the full hero, introductory, feature-card, detail-panel, and CTA content for About Us, Faculty, Student, and Entrance Exam pages. Each page has a **Hero image**, and each feature card can have an optional image. In Sanity Studio, image fields provide upload, replace, remove, crop, hotspot, and media-library selection controls.
-- **Notices & events** and **Faculty members** are ready for their dedicated public listings in the next content phase.
+- **Home page** controls the homepage hero carousel, calls to action, leadership and principal messages, notices, community content, the community image carousel, point-of-view section, and highlight items.
+- **Home page → Community feature → Community carousel images** controls the community carousel. Editors can upload, reorder, caption, and add alt text to each slide.
+- **Website pages** controls the full hero, SEO metadata, introductory, feature-card, detail-panel, and CTA content for About Us, Faculty, Student, and Entrance Exam pages. Each page has a **Hero image**, and each feature card can have an optional image. In Sanity Studio, image fields provide upload, replace, remove, crop, hotspot, and media-library selection controls.
+- **Admissions page** and **Contact page** control the remaining route content and SEO metadata.
+- **Notices & events** and **Faculty members** are rendered from Sanity on the public site. Mark one notice as **Show on home page** to feature it on the homepage.
 
-Until the Sanity variables are configured, pages use the built-in content fallbacks in `lib/site-content.ts`.
+Until the Sanity variables are configured, pages use the built-in content fallbacks in `lib/site-content.ts`, `lib/home-content.ts`, and `lib/secondary-content.ts`.
