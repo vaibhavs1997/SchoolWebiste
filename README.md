@@ -21,6 +21,8 @@ Open `http://localhost:3000`.
 6. Create the singleton **Home page**, **Admissions page**, and **Contact page** documents.
 7. Add content in **Website pages**, **Notices & events**, and **Faculty members**.
 
+For the complete field-by-field editing map, see [CMS_CONTENT_GUIDE.md](CMS_CONTENT_GUIDE.md).
+
 ### Publishing changes
 
 Published content is fetched with a short cache period. For immediate production updates, add a Sanity webhook in **Sanity → API → Webhooks**:
@@ -33,7 +35,8 @@ The webhook verifies Sanity's signature and revalidates the site layout and its 
 
 ### CMS coverage
 
-- **Site settings** controls the admissions strip, navigation, logo, school identity, phone, footer links, address, map, and social profiles.
+- **Site settings** controls the admissions strip, navigation, logo, school identity, and phone.
+- **Footer settings** controls footer branding, link columns, social profiles, address, map, directions, and bottom-bar text.
 - **Home page** controls the homepage hero carousel, calls to action, leadership and principal messages, notices, community content, the community image carousel, point-of-view section, and highlight items.
 - **Home page → Community feature → Community carousel images** controls the community carousel. Editors can upload, reorder, caption, and add alt text to each slide.
 - **Website pages** controls the full hero, SEO metadata, introductory, feature-card, detail-panel, and CTA content for About Us, Faculty, Student, and Entrance Exam pages. Each page has a **Hero image**, and each feature card can have an optional image. In Sanity Studio, image fields provide upload, replace, remove, crop, hotspot, and media-library selection controls.
