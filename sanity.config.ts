@@ -13,6 +13,7 @@ export default defineConfig({
   plugins: [structureTool({
     structure: (S) => S.list().title('GDIS content').items([
       S.listItem().title('Site settings').id('siteSettings').child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+      S.listItem().title('Footer settings').id('footerSettings').child(S.document().schemaType('footerSettings').documentId('footerSettings')),
       S.listItem().title('Home page').id('homePage').child(S.document().schemaType('homePage').documentId('homePage')),
       S.divider(),
       S.documentTypeListItem('page').title('Website pages'),

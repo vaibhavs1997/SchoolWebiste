@@ -1,11 +1,12 @@
 import type { MarketingPageContent } from '@/lib/site-content'
 import { defaultHomeContent, type HomeContent } from '@/lib/home-content'
-import { defaultSiteSettings, type SiteSettings } from '@/lib/site-settings'
+import { defaultFooterSettings, defaultSiteSettings, type FooterSettings, type SiteSettings } from '@/lib/site-settings'
 import { defaultAdmissionContent, defaultContactContent, type AdmissionContent, type ContactContent } from '@/lib/secondary-content'
 import { sanityClient } from '@/sanity/lib/client'
 
 type CmsPage = Partial<MarketingPageContent>
 type CmsSiteSettings = Partial<SiteSettings> & { logoUrl?: string }
+type CmsFooterSettings = Partial<FooterSettings> & { logoUrl?: string }
 type CmsHomeContent = Partial<HomeContent>
 export type FacultyMember = { name: string; role: string; photo?: ContentImage; qualifications?: string; bio?: string; displayOrder?: number }
 export type ContentImage = { url: string; alt?: string }
@@ -25,6 +26,14 @@ const siteSettingsQuery = `*[_id == "siteSettings"][0]{
   navigation[]{label, href}, footerExplore[]{label, href}, footerResources[]{label, href},
   footerMotto, addressLineOne, addressLineTwo, directionsUrl, mapEmbedUrl,
   socialLinks[]{label, href, platform}
+}`
+
+const footerSettingsQuery = `*[_id == "footerSettings"][0]{
+  schoolName, tagline, "logoUrl": logo.asset->url, motto,
+  exploreTitle, exploreLinks[]{label, href}, resourcesTitle, resourceLinks[]{label, href},
+  socialTitle, socialLinks[]{label, href, platform},
+  visitTitle, addressLineOne, addressLineTwo, directionsLabel, directionsUrl, mapEmbedUrl,
+  copyrightTemplate, closingMessage
 }`
 
 const homePageQuery = `*[_id == "homePage"][0]{
@@ -65,6 +74,25 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     return settings ? { ...defaultSiteSettings, ...populatedFields(settings) } : defaultSiteSettings
   } catch {
     return defaultSiteSettings
+  }
+}
+
+export async function getFooterSettings(): Promise<FooterSettings> {
+  if (!sanityClient) return defaultFooterSettings
+
+  try {
+    const footer = await sanityClient.fetch<CmsFooterSettings | null>(footerSettingsQuery, {}, { next: { revalidate: 60, tags: ['footer-settings'] } })
+    if (!footer) return defaultFooterSettings
+
+    return {
+      ...defaultFooterSettings,
+      ...populatedFields(footer),
+      exploreLinks: footer.exploreLinks?.length ? footer.exploreLinks : defaultFooterSettings.exploreLinks,
+      resourceLinks: footer.resourceLinks?.length ? footer.resourceLinks : defaultFooterSettings.resourceLinks,
+      socialLinks: footer.socialLinks?.length ? footer.socialLinks : defaultFooterSettings.socialLinks,
+    }
+  } catch {
+    return defaultFooterSettings
   }
 }
 

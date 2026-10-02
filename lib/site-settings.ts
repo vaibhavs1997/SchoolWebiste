@@ -29,6 +29,27 @@ export type SiteSettings = {
   socialLinks: SocialLink[]
 }
 
+export type FooterSettings = {
+  schoolName: string
+  tagline: string
+  logoUrl?: string
+  motto: string
+  exploreTitle: string
+  exploreLinks: NavigationItem[]
+  resourcesTitle: string
+  resourceLinks: NavigationItem[]
+  socialTitle: string
+  socialLinks: SocialLink[]
+  visitTitle: string
+  addressLineOne: string
+  addressLineTwo: string
+  directionsLabel: string
+  directionsUrl: string
+  mapEmbedUrl: string
+  copyrightTemplate: string
+  closingMessage: string
+}
+
 export const defaultSiteSettings: SiteSettings = {
   schoolName: 'G.D. International School',
   tagline: 'Inspiring Lifelong Learning',
@@ -68,4 +89,24 @@ export const defaultSiteSettings: SiteSettings = {
     { label: 'YouTube', href: 'https://www.youtube.com/', platform: 'youtube' },
     { label: 'WhatsApp', href: 'https://wa.me/917830122354', platform: 'whatsapp' },
   ],
+}
+
+export const defaultFooterSettings: FooterSettings = {
+  schoolName: defaultSiteSettings.schoolName,
+  tagline: defaultSiteSettings.tagline,
+  motto: defaultSiteSettings.footerMotto,
+  exploreTitle: 'Explore',
+  exploreLinks: defaultSiteSettings.footerExplore,
+  resourcesTitle: 'Resources',
+  resourceLinks: defaultSiteSettings.footerResources,
+  socialTitle: 'Follow along',
+  socialLinks: defaultSiteSettings.socialLinks,
+  visitTitle: 'Visit us',
+  addressLineOne: defaultSiteSettings.addressLineOne,
+  addressLineTwo: defaultSiteSettings.addressLineTwo,
+  directionsLabel: 'Get directions',
+  directionsUrl: defaultSiteSettings.directionsUrl,
+  mapEmbedUrl: defaultSiteSettings.mapEmbedUrl,
+  copyrightTemplate: '{year} {schoolName}. All rights reserved.',
+  closingMessage: 'Made for curious minds',
 }

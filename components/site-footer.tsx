@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import type { SiteSettings, SocialLink } from '@/lib/site-settings'
+import type { FooterSettings, SocialLink } from '@/lib/site-settings'
 
-export function SiteFooter({ settings }: Readonly<{ settings: SiteSettings }>) {
+export function SiteFooter({ settings }: Readonly<{ settings: FooterSettings }>) {
   const logo = settings.logoUrl ?? '/assets/GDIS.png'
 
   return (
@@ -10,20 +10,20 @@ export function SiteFooter({ settings }: Readonly<{ settings: SiteSettings }>) {
       <div className="mx-auto grid w-[min(1810px,calc(100%-3rem))] gap-12 py-[4.5rem] xl:grid-cols-[1.7fr_.78fr_.9fr_.72fr_1fr] xl:gap-10">
         <div>
           <Link href="/" className="flex items-center gap-4"><Image src={logo} alt={`${settings.schoolName} emblem`} width={86} height={86} className="h-20 w-20 rounded-full border border-white/20 object-cover" /><span><strong className="font-display text-2xl tracking-[-.055em]">{settings.schoolName}</strong><small className="mt-1 block text-sm text-white/60">{settings.tagline}</small></span></Link>
-          <p className="mt-10 max-w-xs font-serif text-2xl leading-relaxed text-white/70">{settings.footerMotto}</p>
+          <p className="mt-10 max-w-xs font-serif text-2xl leading-relaxed text-white/70">{settings.motto}</p>
         </div>
 
-        <FooterColumn title="Explore"><div className="flex flex-col gap-4">{settings.footerExplore.map((item) => <Link key={`${item.href}-${item.label}`} href={item.href} className="text-lg text-white/75 transition hover:text-lime">{item.label}</Link>)}</div></FooterColumn>
-        <FooterColumn title="Resources"><div className="flex flex-col gap-4">{settings.footerResources.map((item) => <Link key={`${item.href}-${item.label}`} href={item.href} className="text-lg text-white/75 transition hover:text-lime">{item.label}</Link>)}</div></FooterColumn>
-        <FooterColumn title="Follow along"><div className="flex flex-col gap-4">{settings.socialLinks.map((item) => <a key={item.label} href={item.href} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-lg text-white/75 transition hover:text-lime"><SocialIcon name={item.platform} />{item.label}</a>)}</div></FooterColumn>
+        <FooterColumn title={settings.exploreTitle}><div className="flex flex-col gap-4">{settings.exploreLinks.map((item) => <Link key={`${item.href}-${item.label}`} href={item.href} className="text-lg text-white/75 transition hover:text-lime">{item.label}</Link>)}</div></FooterColumn>
+        <FooterColumn title={settings.resourcesTitle}><div className="flex flex-col gap-4">{settings.resourceLinks.map((item) => <Link key={`${item.href}-${item.label}`} href={item.href} className="text-lg text-white/75 transition hover:text-lime">{item.label}</Link>)}</div></FooterColumn>
+        <FooterColumn title={settings.socialTitle}><div className="flex flex-col gap-4">{settings.socialLinks.map((item) => <a key={item.label} href={item.href} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-lg text-white/75 transition hover:text-lime"><SocialIcon name={item.platform} />{item.label}</a>)}</div></FooterColumn>
 
-        <FooterColumn title="Visit us">
+        <FooterColumn title={settings.visitTitle}>
           <address className="not-italic text-lg leading-relaxed text-white/75">{settings.addressLineOne}<br />{settings.addressLineTwo}</address>
-          <a className="mt-4 inline-flex text-base font-bold text-lime transition hover:text-white" href={settings.directionsUrl} target="_blank" rel="noreferrer">Get directions ↗</a>
+          <a className="mt-4 inline-flex text-base font-bold text-lime transition hover:text-white" href={settings.directionsUrl} target="_blank" rel="noreferrer">{settings.directionsLabel} ↗</a>
           <iframe title={`${settings.schoolName} location`} className="mt-7 h-28 w-full border-0" loading="lazy" src={settings.mapEmbedUrl} />
         </FooterColumn>
       </div>
-      <div className="border-t border-white/15"><div className="mx-auto flex w-[min(1810px,calc(100%-3rem))] flex-col justify-between gap-3 py-6 text-sm text-white/55 sm:flex-row"><span>© {new Date().getFullYear()} {settings.schoolName}. All rights reserved.</span><span>Made for curious minds ✦</span></div></div>
+      <div className="border-t border-white/15"><div className="mx-auto flex w-[min(1810px,calc(100%-3rem))] flex-col justify-between gap-3 py-6 text-sm text-white/55 sm:flex-row"><span>{settings.copyrightTemplate.replace('{year}', String(new Date().getFullYear())).replace('{schoolName}', settings.schoolName)}</span><span>{settings.closingMessage} ✦</span></div></div>
     </footer>
   )
 }
