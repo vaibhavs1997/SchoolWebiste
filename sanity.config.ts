@@ -19,6 +19,8 @@ export default defineConfig({
       S.documentTypeListItem('page').title('Website pages'),
       S.documentTypeListItem('notice').title('Notices & events'),
       S.documentTypeListItem('facultyMember').title('Faculty members'),
+      S.documentTypeListItem('admissionPage').title('Admissions page'),
+      S.documentTypeListItem('contactPage').title('Contact page'),
     ]),
   })],
   schema: { types: schemaTypes },

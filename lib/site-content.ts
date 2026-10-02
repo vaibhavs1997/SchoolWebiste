@@ -4,6 +4,9 @@ export type FeatureCard = { number: string; title: string; body: string; image?:
 
 export type MarketingPageContent = {
   slug: string
+  seoTitle?: string
+  seoDescription?: string
+  seoImageUrl?: string
   eyebrow: string
   heroTitle: string
   heroAccent: string
