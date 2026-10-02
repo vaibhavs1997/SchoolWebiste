@@ -5,9 +5,9 @@ export const featureCard = defineType({
   title: 'Feature card',
   type: 'object',
   fields: [
-    defineField({ name: 'number', title: 'Label or number', type: 'string' }),
-    defineField({ name: 'title', title: 'Title', type: 'string', validation: (rule) => rule.required() }),
-    defineField({ name: 'body', title: 'Description', type: 'text', rows: 3 }),
+    defineField({ name: 'number', title: 'Label or number', description: 'Small label such as “01 / MISSION”.', type: 'string' }),
+    defineField({ name: 'title', title: 'Title', description: 'Feature card heading.', type: 'string', validation: (rule) => rule.required() }),
+    defineField({ name: 'body', title: 'Description', description: 'Short explanation shown below the card heading.', type: 'text', rows: 3 }),
     defineField({
       name: 'image',
       title: 'Image',

@@ -1,0 +1,31 @@
+import { defineField, defineType } from 'sanity'
+
+export const admissionPage = defineType({
+  name: 'admissionPage', title: 'Admissions page', type: 'document',
+  fields: [
+    defineField({ name: 'seoTitle', title: 'SEO title', description: 'Optional browser and search-result title for the admissions page.', type: 'string' }),
+    defineField({ name: 'seoDescription', title: 'SEO description', description: 'Optional search-result summary. Aim for one clear sentence of about 150 characters.', type: 'text', rows: 3 }),
+    defineField({ name: 'banner', title: 'Banner label', description: 'Small highlighted label above the admissions hero.', type: 'string' }),
+    defineField({ name: 'eyebrow', title: 'Hero eyebrow', description: 'Small label above the admissions heading.', type: 'string' }),
+    defineField({ name: 'heroTitle', title: 'Hero title', description: 'First line of the admissions hero heading.', type: 'string' }),
+    defineField({ name: 'heroAccent', title: 'Hero accent', description: 'Second line of the hero heading, shown in the accent style.', type: 'string' }),
+    defineField({ name: 'heroSummary', title: 'Hero summary', description: 'Short introduction shown below the hero heading.', type: 'text', rows: 3 }),
+    defineField({ name: 'introLabel', title: 'Introduction label', description: 'Small label above the introduction section.', type: 'string' }),
+    defineField({ name: 'introTitle', title: 'Introduction title', description: 'Main introduction heading.', type: 'string' }),
+    defineField({ name: 'introAccent', title: 'Introduction accent', description: 'Accent portion of the introduction heading.', type: 'string' }),
+    defineField({ name: 'introParagraphs', title: 'Introduction paragraphs', description: 'Add one paragraph per item for the admissions introduction.', type: 'array', of: [{ type: 'text', rows: 4 }] }),
+    defineField({ name: 'introCtaLabel', title: 'Introduction button label', description: 'Text for the button that jumps to the enquiry form.', type: 'string' }),
+    defineField({ name: 'stepsLabel', title: 'Steps label', description: 'Small label above the admission steps.', type: 'string' }),
+    defineField({ name: 'stepsTitle', title: 'Steps title', description: 'Main heading for the steps section.', type: 'string' }),
+    defineField({ name: 'stepsAccent', title: 'Steps accent', description: 'Accent portion of the steps heading.', type: 'string' }),
+    defineField({ name: 'steps', title: 'Admission steps', description: 'Add the steps families should follow. Keep the order logical.', type: 'array', of: [{ type: 'object', fields: [defineField({ name: 'number', title: 'Number', description: 'Label such as 01 / EXPLORE.', type: 'string' }), defineField({ name: 'title', title: 'Title', description: 'Short step heading.', type: 'string' }), defineField({ name: 'body', title: 'Description', description: 'Explain this step in one or two sentences.', type: 'text', rows: 3 })] }] }),
+    defineField({ name: 'formEyebrow', title: 'Form eyebrow', description: 'Small label above the enquiry form.', type: 'string' }),
+    defineField({ name: 'formTitle', title: 'Form title', description: 'First part of the enquiry form heading.', type: 'string' }),
+    defineField({ name: 'formAccent', title: 'Form accent', description: 'Accent part of the enquiry form heading.', type: 'string' }),
+    defineField({ name: 'formDescription', title: 'Form description', description: 'Short explanation above the form fields.', type: 'text', rows: 3 }),
+    defineField({ name: 'closingTitle', title: 'Closing title', description: 'Closing call-to-action heading.', type: 'string' }),
+    defineField({ name: 'closingAccent', title: 'Closing accent', description: 'Accent portion of the closing heading.', type: 'string' }),
+    defineField({ name: 'closingCtaLabel', title: 'Closing button label', description: 'Text for the closing button.', type: 'string' }),
+    defineField({ name: 'closingCtaHref', title: 'Closing button link', description: 'Internal path or full URL opened by the closing button.', type: 'string' }),
+  ],
+})
