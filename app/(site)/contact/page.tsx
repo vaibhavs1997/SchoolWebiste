@@ -1,8 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { getContactContent } from '@/sanity/lib/queries'
+import { getSiteSettings } from '@/sanity/lib/queries'
 
-export const metadata: Metadata = { title: 'Contact Us' }
+export default async function ContactPage() {
+  const [content, settings] = await Promise.all([getContactContent(), getSiteSettings()])
+  return <main><section className="bg-ink py-20 text-white sm:py-28"><div className="site-shell"><p className="eyebrow text-white/65">{content.eyebrow}</p><h1 className="mt-6 font-display text-5xl font-bold tracking-[-0.07em] sm:text-7xl">{content.heroTitle} <em className="font-serif font-normal text-lime">{content.heroAccent}</em></h1><p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl">{content.heroSummary}</p></div></section><section className="bg-paper py-16 sm:py-24"><div className="site-shell grid gap-7 md:grid-cols-3"><a className="border border-ink/15 bg-[#fffdf7] p-8" href={`tel:${settings.phone.replace(/[^+\d]/g, '')}`}><p className="section-label">{content.phoneLabel}</p><p className="mt-5 text-xl font-bold">{settings.phone}</p></a><a className="border border-ink/15 bg-[#fffdf7] p-8" href={`mailto:${settings.email}`}><p className="section-label">{content.emailLabel}</p><p className="mt-5 break-words text-xl font-bold">{settings.email}</p></a><div className="border border-ink/15 bg-[#fffdf7] p-8"><p className="section-label">{content.visitLabel}</p><p className="mt-5 leading-relaxed">{content.visitLines.map((line) => <span key={line} className="block">{line}</span>)}</p></div></div><div className="site-shell mt-12 text-center"><Link href={content.ctaHref} className="rounded-full bg-lime px-6 py-4 text-sm font-bold text-ink">{content.ctaLabel}</Link></div></section></main>
+}
 
-export default function ContactPage() {
-  return <main><section className="bg-ink py-20 text-white sm:py-28"><div className="site-shell"><p className="eyebrow text-white/65">Let&apos;s connect</p><h1 className="mt-6 font-display text-5xl font-bold tracking-[-0.07em] sm:text-7xl">We&apos;re here to <em className="font-serif font-normal text-lime">help.</em></h1><p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/75">Whether you are exploring the school or ready to apply, our team would be happy to hear from you.</p></div></section><section className="bg-paper py-16 sm:py-24"><div className="site-shell grid gap-7 md:grid-cols-3"><a className="border border-ink/15 bg-[#fffdf7] p-8" href="tel:+917830122354"><p className="section-label">Call</p><p className="mt-5 text-xl font-bold">+91 78301 22354</p></a><a className="border border-ink/15 bg-[#fffdf7] p-8" href="mailto:info@gdinternationalschoolaliganj.in"><p className="section-label">Email</p><p className="mt-5 break-words text-xl font-bold">info@gdinternationalschoolaliganj.in</p></a><div className="border border-ink/15 bg-[#fffdf7] p-8"><p className="section-label">Visit</p><p className="mt-5 leading-relaxed">Hatsari road, Aliganj (Etah)<br />300 Mtr. away from Hatsari crossing<br />207247 Uttar Pradesh</p></div></div><div className="site-shell mt-12 text-center"><Link href="/admission" className="rounded-full bg-lime px-6 py-4 text-sm font-bold text-ink">Start an admission enquiry →</Link></div></section></main>
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getContactContent()
+  return { title: content.seoTitle ?? 'Contact Us', description: content.seoDescription }
 }
