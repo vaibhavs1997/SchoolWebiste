@@ -38,7 +38,7 @@ const footerSettingsQuery = `*[_id == "footerSettings"][0]{
 
 const homePageQuery = `*[_id == "homePage"][0]{
   seoTitle, seoDescription, heroEyebrow,
-  heroSlides[]{"image": image.asset->url, title, accent, description},
+  heroSlides[]{"image": image.asset->url, "heading": coalesce(heading, title + " " + accent), description},
   primaryCtaLabel, primaryCtaHref, secondaryCtaLabel, secondaryCtaHref,
   heroStats[]{label, value},
   leadership{label, title, accent, "image": image.asset->url, "imageAlt": image.alt, paragraphs, signoff, name, role},

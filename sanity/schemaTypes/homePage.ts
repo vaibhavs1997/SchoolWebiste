@@ -9,14 +9,13 @@ export const homePage = defineType({
     defineField({ name: 'seoDescription', title: 'SEO description', description: 'Optional search-result summary. Aim for one clear sentence of about 150 characters.', type: 'text', rows: 3 }),
     defineField({ name: 'heroEyebrow', title: 'Hero label', description: 'Small label shown above the main homepage hero heading.', type: 'string' }),
     defineField({
-      name: 'heroSlides', title: 'Hero slides', description: 'Images and text for the main homepage carousel. Slides appear in this order; keep between 1 and 5.', type: 'array', validation: (rule) => rule.min(1).max(5), of: [{ type: 'object', fields: [
+      name: 'heroSlides', title: 'Hero slides', description: 'Upload 1–5 images in order. The first slide displays the homepage text and calls to action; slides from the second onward display image-only.', type: 'array', validation: (rule) => rule.min(1).max(5), of: [{ type: 'object', fields: [
         defineField({
           name: 'image', title: 'Background image', description: 'Upload a wide, high-quality image. Use the hotspot to choose the important area.', type: 'image', options: { hotspot: true }, validation: (rule) => rule.required(),
           fields: [defineField({ name: 'alt', title: 'Alternative text', type: 'string', description: 'Describe the image for screen-reader users.' })],
         }),
-        defineField({ name: 'title', title: 'Title', description: 'First line of the slide heading.', type: 'string', validation: (rule) => rule.required() }),
-        defineField({ name: 'accent', title: 'Accent title', description: 'Second line of the heading, displayed in the accent color.', type: 'string', validation: (rule) => rule.required() }),
-        defineField({ name: 'description', title: 'Description', description: 'Short supporting text shown below the slide heading.', type: 'text', rows: 3 }),
+        defineField({ name: 'heading', title: 'Heading', description: 'Heading shown on the first slide. Leave blank for image-only slides.', type: 'text', rows: 2 }),
+        defineField({ name: 'description', title: 'Description', description: 'Supporting text shown on the first slide. Leave blank for image-only slides.', type: 'text', rows: 3 }),
       ] }],
     }),
     defineField({ name: 'primaryCtaLabel', title: 'Primary button label', description: 'Text for the bright primary button in the hero.', type: 'string' }),
@@ -24,7 +23,7 @@ export const homePage = defineType({
     defineField({ name: 'secondaryCtaLabel', title: 'Secondary button label', description: 'Text for the secondary text link in the hero.', type: 'string' }),
     defineField({ name: 'secondaryCtaHref', title: 'Secondary button link', description: 'Internal path such as /about-us, or a full https:// URL.', type: 'string' }),
     defineField({
-      name: 'heroStats', title: 'Hero highlight items', description: 'Small facts shown at the bottom of the hero. Add up to three.', type: 'array', validation: (rule) => rule.max(3), of: [{ type: 'object', fields: [
+      name: 'heroStats', title: 'Hero highlight items', description: 'Small facts shown at the bottom of every hero image. Add up to three.', type: 'array', validation: (rule) => rule.max(3), of: [{ type: 'object', fields: [
         defineField({ name: 'label', title: 'Label', description: 'Short highlighted fact, for example “Since 2020”.', type: 'string', validation: (rule) => rule.required() }),
         defineField({ name: 'value', title: 'Supporting text', description: 'Additional explanation shown below the label.', type: 'string' }),
       ] }],
